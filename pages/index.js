@@ -6,6 +6,29 @@ import { useState } from 'react';
 const Home = () => {
   const [userInput, setUserInput] = useState('');
 
+  const [apiOutput, setApiOutput] = useState('')
+  const [isGenerating, setIsGenerating] = useState(false)
+  
+  const callGenerateEndpoint = async () => {
+    setIsGenerating(true);
+    
+    console.log("Calling OpenAI...")
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userInput }),
+    });
+  
+    const data = await response.json();
+    const { output } = data;
+    console.log("OpenAI replied...", output.text)
+  
+    setApiOutput(`${output.text}`);
+    setIsGenerating(false);
+  }
+
   const onUserChangedText = (event) => {
     setUserInput(event.target.value);
   };
@@ -23,17 +46,16 @@ const Home = () => {
           <div className="header-subtitle">
             <h2>Type out your story idea and we'll give you a complete outline for a novel-length story, complete with a twist!</h2>
           </div>
-           {/* Add this code here*/}
         <div className="prompt-container">
           <textarea
             className="prompt-box"
             placeholder="start typing here"
             value={userInput}
             onChange={onUserChangedText}
-          />;
+          />
           {/* New code I added here */}
           <div className="prompt-buttons">
-            <a className="generate-button" onClick={null}>
+            <a className="generate-button" onClick={callGenerateEndpoint}>
               <div className="generate">
                 <p>Generate</p>
               </div>
