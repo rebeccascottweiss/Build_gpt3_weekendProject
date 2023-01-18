@@ -41,15 +41,15 @@ const Home = () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>A Novel Outline</h1>
+            <h1>Your Next Novel</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Type out your story idea and we'll give you a complete outline for a novel-length story, complete with a twist!</h2>
+            <h2>Type out a plot idea and we'll give you a synopsis for your next novel, complete with a twist!</h2>
           </div>
         <div className="prompt-container">
           <textarea
             className="prompt-box"
-            placeholder="start typing here"
+            placeholder="A young man named Luke Skywalker finds out he is the last Jedi."
             value={userInput}
             onChange={onUserChangedText}
           />
